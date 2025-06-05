@@ -1,0 +1,26 @@
+version: v2
+clean: true
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: github.com/frozenbonito/connect-error-metadata/pb
+plugins:
+  - remote: buf.build/protocolbuffers/go:v1.36.6
+    out: pb
+    opt:
+      - paths=source_relative
+  - remote: buf.build/grpc/go:v1.5.1
+    out: pb
+    opt:
+      - paths=source_relative
+  - remote: buf.build/connectrpc/go:v1.18.1
+    out: pb
+    opt:
+      - paths=source_relative
+inputs:
+  - git_repo: https://github.com/grpc/grpc.git
+    tag: v1.72.1
+    subdir: examples/protos
+    paths:
+      - helloworld.proto
